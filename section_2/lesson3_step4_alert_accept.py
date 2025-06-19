@@ -7,23 +7,17 @@ from section_2.lesson1_step5_click_checkbox import calc
 import time
 
 
-def accept_alert(driver: webdriver.Chrome, href: str) -> None:
+def submit_result(driver: webdriver.Chrome, href: str) -> None:
     try:
         driver.get(href)
-        btn = driver.find_element(By.CSS_SELECTOR, 'button.btn')
-        btn.click()
-
-        alert = driver.switch_to.alert
-        alert.accept()
+        driver.find_element(By.CSS_SELECTOR, 'button.btn').click()
+        driver.switch_to.alert.accept()
 
         x = int(driver.find_element(By.ID, 'input_value').text)
         result = calc(x)
 
-        answer = driver.find_element(By.ID, 'answer')
-        answer.send_keys(str(result))
-
-        btn_submit = driver.find_element(By.CSS_SELECTOR, 'button.btn')
-        btn_submit.click()
+        driver.find_element(By.ID, 'answer').send_keys(str(result))
+        driver.find_element(By.CSS_SELECTOR, 'button.btn').click()
 
     except (NoSuchElementException, Exception) as e:
         print(e)
@@ -36,4 +30,4 @@ def accept_alert(driver: webdriver.Chrome, href: str) -> None:
 if __name__ == "__main__":
     link = 'http://suninjuly.github.io/alert_accept.html'
     browser = webdriver.Chrome()
-    accept_alert(browser, link)
+    submit_result(browser, link)
