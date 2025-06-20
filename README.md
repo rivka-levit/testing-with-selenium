@@ -34,10 +34,10 @@ fundamental to intermediate concepts of UI test automation.
     pip install -r requirements.txt
     ```
 4. Download the appropriate WebDriver
-   - For Chrome: https://sites.google.com/chromium.org/driver/
-   - For Firefox: https://github.com/mozilla/geckodriver/releases
 
-Make sure the driver is added to your system’s PATH or placed in the drivers/ folder.
+   For Chrome: https://sites.google.com/chromium.org/driver/
+
+   Make sure the driver is added to your system’s PATH or placed in the drivers/ folder.
 
 ### ▶️ Running Tests
 
@@ -58,7 +58,7 @@ pytest tests/
 - 📄 Page Object Model (POM)
 - 🧼 pytest fixtures & test setup
 - ⏱️ Implicit and explicit waits
-- 🌍 ChromeDriver / GeckoDriver
+- 🌍 ChromeDriver
 
 ### 📌 Course Topics Covered
 
