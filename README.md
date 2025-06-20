@@ -22,7 +22,7 @@ fundamental to intermediate concepts of UI test automation.
 1. Clone the repository
     ```
     git clone https://github.com/rivka-levit/testing-with-selenium.git
-    cd selenium_testing
+    cd testing-with-selenium
     ```
 2. Create and activate a virtual environment
     ```
