@@ -1,13 +1,13 @@
 # Test Automation with Selenium and Python – Course Solutions
 
-## 📚 Overview
+### 📚 Overview
 
 This repository contains my completed exercises and solutions from the course
 ["Test Automation with Selenium and Python"](https://stepik.org/course/575/syllabus). The course focuses on automating 
 web application testing using the Selenium WebDriver with Python, covering 
 fundamental to intermediate concepts of UI test automation.
 
-## 🚀 What You’ll Find Here
+### 🚀 What You’ll Find Here
 
 - ✅ Solutions to hands-on exercises and assignments from the course
 - 🧪 Automated test scripts using Selenium WebDriver
@@ -17,7 +17,7 @@ fundamental to intermediate concepts of UI test automation.
 - 🧱 Handling dynamic elements, waits, and browser interactions
 - 📦 Dependency management with requirements.txt
 
-## 🔧 Setup Instructions
+### 🔧 Setup Instructions
 
 1. Clone the repository
     ```
@@ -39,7 +39,7 @@ fundamental to intermediate concepts of UI test automation.
 
 Make sure the driver is added to your system’s PATH or placed in the drivers/ folder.
 
-## ▶️ Running Tests
+### ▶️ Running Tests
 
 #### To run tests with unittest:
 ```
@@ -50,7 +50,7 @@ python -m unittest discover tests/
 pytest tests/
 ```
 
-## 🧰 Tools & Technologies Used
+### 🧰 Tools & Technologies Used
 
 - 🐍 Python 3.x
 - 🌐 Selenium WebDriver
@@ -60,7 +60,7 @@ pytest tests/
 - ⏱️ Implicit and explicit waits
 - 🌍 ChromeDriver / GeckoDriver
 
-## 📌 Course Topics Covered
+### 📌 Course Topics Covered
 
 - Setting up Selenium WebDriver with Python
 - Locating elements with XPath, CSS selectors, and other strategies
@@ -71,7 +71,7 @@ pytest tests/
 - Debugging and troubleshooting test failures
 - Organizing test suites and generating reports
 
-## 🙌 Acknowledgments
+### 🙌 Acknowledgments
 
 This repository is based on the exercises from the "Test Automation with 
 Selenium and Python" course. Special thanks to the course instructor for 
