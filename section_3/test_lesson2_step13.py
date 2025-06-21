@@ -55,3 +55,14 @@ class TestUniqueSelectors(unittest.TestCase):
                 By.CSS_SELECTOR,
                 ".first_block .second"
             ).send_keys("Doe")  # Insert last name
+
+        # -------------- lesson variant -------------------
+        # self.browser.find_element(
+        #     By.CSS_SELECTOR,
+        #     ".first_block .first"
+        # ).send_keys("John")  # Insert first name
+        #
+        # self.browser.find_element(
+        #     By.CSS_SELECTOR,
+        #     ".first_block .second"
+        # ).send_keys("Doe")  # Insert last name
