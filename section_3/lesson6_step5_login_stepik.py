@@ -31,7 +31,7 @@ def test_stepik_solve_problem_success(browser, url):
 
     # Log in to the site
 
-    browser.find_element(By.ID, 'ember479').click()  # Pop up login window
+    browser.find_element(By.ID, 'ember479').click()  # Login button
     browser.find_element(By.ID, 'id_login_email').send_keys(
         os.environ.get('STEPIK_USERNAME')
     )
