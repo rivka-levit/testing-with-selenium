@@ -2,3 +2,4 @@ selenium>=4.33.0,<4.39
 pytest>=8.4.1,<8.4.9
 pytest-sugar==1.0.0
 python-dotenv==1.1.0
+pytest-rerunfailures==15.1

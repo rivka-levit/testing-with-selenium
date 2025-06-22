@@ -27,11 +27,13 @@ def test_stepik_solve_problem_success(browser, url):
     """Test solving problem on stepik.org successfully."""
 
     browser.get(url)
-    browser.implicitly_wait(5)
 
     # Log in to the site
 
-    browser.find_element(By.ID, 'ember479').click()  # Login button
+    WebDriverWait(browser, 5).until(
+        EC.presence_of_element_located((By.ID, 'ember479'))  # Login button
+    )
+    browser.find_element(By.ID, 'ember479').click()
     browser.find_element(By.ID, 'id_login_email').send_keys(
         os.environ.get('STEPIK_USERNAME')
     )
@@ -48,11 +50,11 @@ def test_stepik_solve_problem_success(browser, url):
 
     # Check the textarea is empty. If not - reload the task and fill the field.
 
+    browser.implicitly_wait(10)
     text_area = browser.find_element(
         By.CSS_SELECTOR,
         'textarea[placeholder="Напишите ваш ответ здесь..."]'
     )
-    browser.implicitly_wait(10)
 
     if text_area.is_enabled():
         text_area.send_keys(str(answer))
