@@ -35,7 +35,8 @@ fundamental to intermediate concepts of UI test automation.
     ```
 4. Download the appropriate WebDriver
 
-   For Chrome: https://sites.google.com/chromium.org/driver/
+   - For Chrome: https://sites.google.com/chromium.org/driver/
+   - For Firefox: https://github.com/mozilla/geckodriver/releases
 
    Make sure the driver is added to your system’s PATH or placed in the drivers/ folder.
 
@@ -58,7 +59,7 @@ pytest tests/
 - 📄 Page Object Model (POM)
 - 🧼 pytest fixtures & test setup
 - ⏱️ Implicit and explicit waits
-- 🌍 ChromeDriver
+- 🌍 ChromeDriver / GeckoDriver
 
 ### 📌 Course Topics Covered
 
