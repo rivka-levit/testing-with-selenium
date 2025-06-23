@@ -44,11 +44,11 @@ fundamental to intermediate concepts of UI test automation.
 
 #### To run tests with unittest:
 ```
-python -m unittest discover tests/
+python -m unittest section_3.test_lesson2_step13
 ```
 #### To run tests with pytest:
 ```
-pytest tests/
+pytest
 ```
 
 ### 🧰 Tools & Technologies Used

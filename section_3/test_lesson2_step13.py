@@ -1,3 +1,8 @@
+"""
+Test with the unittest library.
+Command to run tests: python -m unittest section_3.test_lesson2_step13
+"""
+
 import unittest
 
 from selenium import webdriver
