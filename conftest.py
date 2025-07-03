@@ -23,7 +23,7 @@ def browser(request):
     browser_language = request.config.getoption('language')
 
     if browser_name == 'chrome':
-        print("\nstart `chrome` browser for test..")
+        # print("\nstart `chrome` browser for test..")
 
         # Set options
         options = ChromeOptions()
@@ -38,7 +38,7 @@ def browser(request):
         browser = webdriver.Chrome(options=options)
 
     elif browser_name == 'firefox':
-        print("\nstart `firefox` browser for test..")
+        # print("\nstart `firefox` browser for test..")
 
         #Set options
         options = FireFoxOptions()
@@ -54,5 +54,5 @@ def browser(request):
 
     yield browser
 
-    print("\nquit browser..")
+    # print("\nquit browser..")
     browser.quit()
