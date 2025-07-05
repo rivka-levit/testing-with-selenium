@@ -1,3 +1,8 @@
+"""
+Test tasks for finding elements using Selenium.
+Command: pytest training\test_find_elems.py
+"""
+
 import time
 
 from selenium.webdriver.common.by import By
@@ -42,3 +47,19 @@ def test_group_elems(browser):
 
     time.sleep(2)
     print(browser.find_element(By.TAG_NAME, 'password').text)
+
+
+def test_filling_inputs(browser):
+    browser.get('http://parsinger.ru/selenium/1/1.html')
+    inputs = browser.find_elements(By.CLASS_NAME, 'form')
+    for inp in inputs:
+        inp.send_keys('Text')
+    browser.find_element(By.ID, 'btn').click()
+    time.sleep(10)
+
+
+def test_find_by_partial_link(browser):
+    browser.get('http://parsinger.ru/selenium/2/2.html')
+    link = browser.find_element(By.PARTIAL_LINK_TEXT, '16243162441624')
+    link.click()
+    print(browser.find_element(By.ID, 'result').text)
