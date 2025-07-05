@@ -63,3 +63,20 @@ def test_find_by_partial_link(browser):
     link = browser.find_element(By.PARTIAL_LINK_TEXT, '16243162441624')
     link.click()
     print(browser.find_element(By.ID, 'result').text)
+
+
+def test_sum_p_text(browser):
+    browser.get('http://parsinger.ru/selenium/3/3.html')
+    text_boxes = browser.find_elements(By.TAG_NAME, 'p')
+    result = 0
+    for box in text_boxes:
+        num = box.text
+        if num.isdigit():
+            result += int(num)
+    print(result)
+
+
+def test_sum_second_p(browser):
+    browser.get('http://parsinger.ru/selenium/3/3.html')
+    elems = browser.find_elements(By.CSS_SELECTOR, 'div.text p:nth-child(2)')
+    print(sum([int(elem.text) for elem in elems]))
