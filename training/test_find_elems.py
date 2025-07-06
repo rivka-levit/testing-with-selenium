@@ -117,3 +117,23 @@ def test_click_optional_checkbox(browser):
 
     browser.find_element(By.CLASS_NAME, 'btn').click()
     print(browser.find_element(By.ID, 'result').text)
+
+
+def test_dropdown_options(browser):
+    browser.get('https://parsinger.ru/selenium/7/7.html')
+    elems = browser.find_elements(By.CSS_SELECTOR, '#opt > option')
+    result = sum([int(i.text) for i in elems])
+    browser.find_element(By.ID, 'input_result').send_keys(str(result))
+    browser.find_element(By.ID, 'sendbutton').click()
+    print(browser.find_element(By.ID, 'result').text)
+
+
+def test_choose_right_option(browser):
+    browser.get('http://parsinger.ru/selenium/6/6.html')
+    n = (12434107696 * 3 * 2) + 1
+    browser.find_element(
+        By.XPATH,
+        f'//select[@id="selectId"]/option[text()={str(n)}]'
+    ).click()
+    browser.find_element(By.ID, 'sendbutton').click()
+    print(browser.find_element(By.ID, 'result').text)
