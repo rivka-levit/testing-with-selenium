@@ -1,0 +1,31 @@
+"""
+Test work with cookies in Selenium.
+Command: pytest training\test_cookies.py
+"""
+import time
+
+from selenium.webdriver.common.by import By
+
+
+def test_get_one_cookie(browser):
+    browser.get('https://parsinger.ru/selenium/6/6.3.1/index.html')
+    cookie = browser.get_cookie('token_22')
+    print(cookie['value'])
+
+
+def test_get_song_from_cookies(browser):
+    browser.get('https://parsinger.ru/selenium/6/6.3/index.html')
+    cookies = browser.get_cookies()
+    song = cookies[0]['name']
+    time.sleep(2)
+    browser.find_element(By.ID, 'phraseInput').send_keys(song)
+    time.sleep(2)
+    browser.find_element(By.ID, 'checkButton').click()
+    time.sleep(2)
+    print(browser.find_element(By.ID, 'result').text)
+
+
+def test_delete_cookies(browser):
+    browser.get('https://parsinger.ru/selenium/6/6.3.2/index.html')
+    browser.delete_all_cookies()
+    time.sleep(10)
