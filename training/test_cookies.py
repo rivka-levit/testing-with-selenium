@@ -29,3 +29,21 @@ def test_delete_cookies(browser):
     browser.get('https://parsinger.ru/selenium/6/6.3.2/index.html')
     browser.delete_all_cookies()
     time.sleep(10)
+
+
+def test_add_cookies(browser):
+    browser.get('https://parsinger.ru/selenium/6/6.3.3/index.html')
+    cookie_dict = {
+        'name': 'secretKey',    # Любое имя для cookie
+        'value': 'selenium123',  # Любое значение для cookie
+        # 'expiry': 2_000_000_000,      # Время жизни cookie в секундах
+        # 'path': '/',                  # Директория на сервере дял которой будут доступны cookie
+        # 'domain': 'parsinger.ru',     # Информация о домене и поддомене для которых доступны cookie
+        # 'secure': True,   # or False - Сигнал браузера о том что передать cookie только по защищённому HTTPS
+        # 'httpOnly': True,  # or False - Ограничивает доступ к cookie по средствам API
+        # 'sameSite': 'Strict',  # or lax or none - Ограничение на передачу cookie между сайтами
+    }
+    browser.add_cookie(cookie_dict)
+    browser.refresh()
+    time.sleep(2)
+    print(browser.find_element(By.ID, 'password').text)
