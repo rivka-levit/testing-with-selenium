@@ -32,3 +32,13 @@ def test_refresh(browser):
         browser.refresh()
         result = browser.find_element(By.ID, 'result').text
     print(result)
+
+
+def test_clear_method(browser):
+    browser.get('https://parsinger.ru/selenium/5.5/1/1.html')
+    fields = browser.find_elements(By.CLASS_NAME, 'text-field')
+    for field in fields:
+        field.clear()
+    browser.find_element(By.ID, 'checkButton').click()
+    alert = browser.switch_to.alert
+    print(alert.text)
