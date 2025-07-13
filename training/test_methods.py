@@ -42,3 +42,14 @@ def test_clear_method(browser):
     browser.find_element(By.ID, 'checkButton').click()
     alert = browser.switch_to.alert
     print(alert.text)
+
+
+def test_get_attr_method(browser):
+    browser.get('https://parsinger.ru/selenium/5.5/2/1.html')
+    fields = browser.find_elements(By.CLASS_NAME, 'text-field')
+    for field in fields:
+        if not field.get_attribute('disabled'):
+            field.clear()
+    browser.find_element(By.ID, 'checkButton').click()
+    alert = browser.switch_to.alert
+    print(alert.text)
