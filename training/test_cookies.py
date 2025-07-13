@@ -47,3 +47,14 @@ def test_add_cookies(browser):
     browser.refresh()
     time.sleep(2)
     print(browser.find_element(By.ID, 'password').text)
+
+
+def test_find_even_cookies(browser):
+    browser.get('https://parsinger.ru/methods/3/index.html')
+    cookies = browser.get_cookies()
+    result = 0
+    for cookie in cookies:
+        cookie_name_number = cookie['name'].split('_')[-1]
+        if cookie_name_number.isdigit() and int(cookie_name_number) % 2 == 0:
+            result += int(cookie['value'])
+    print(result)
