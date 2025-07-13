@@ -23,3 +23,12 @@ def test_screenshot_to_file(browser):
     browser.maximize_window()
     img = browser.find_element(By.ID, 'this_pic')
     img.screenshot('training/images/screenshot.png')
+
+
+def test_refresh(browser):
+    browser.get('https://parsinger.ru/methods/1/index.html')
+    result = browser.find_element(By.ID, 'result').text
+    while not result.isdigit():
+        browser.refresh()
+        result = browser.find_element(By.ID, 'result').text
+    print(result)
