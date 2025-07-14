@@ -58,3 +58,25 @@ def test_find_even_cookies(browser):
         if cookie_name_number.isdigit() and int(cookie_name_number) % 2 == 0:
             result += int(cookie['value'])
     print(result)
+
+
+def test_cookie_max_expiry(browser):
+    browser.get('https://parsinger.ru/methods/5/index.html')
+    links = browser.find_elements(By.CSS_SELECTOR, '.urls a')
+
+    max_expiry = 0
+    result = None
+
+    for link in links:
+        link.click()
+        cookies = browser.get_cookies()
+
+        for cookie in cookies:
+            expiry = int(cookie['expiry'])
+            if expiry > max_expiry:
+                max_expiry = expiry
+                result = browser.find_element(By.ID, 'result').text
+
+        browser.back()
+
+    print(result)
