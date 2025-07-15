@@ -64,3 +64,16 @@ def test_is_selected_method(browser):
             value = block.find_element(By.TAG_NAME, 'textarea').get_attribute('value')
             result += int(value)
     print(result)
+
+
+def test_move_value_from_gray_to_blue(browser):
+    browser.get('https://parsinger.ru/selenium/5.5/4/1.html')
+    blocks = browser.find_elements(By.CLASS_NAME, 'parent')
+    for block in blocks:
+        gray_field = block.find_element(By.CSS_SELECTOR, 'textarea[color="gray"]')
+        blue_field = block.find_element(By.CSS_SELECTOR, 'textarea[color="blue"]')
+        blue_field.send_keys(gray_field.text)
+        gray_field.clear()
+        block.find_element(By.TAG_NAME, 'button').click()
+    browser.find_element(By.ID, 'checkAll').click()
+    print(browser.find_element(By.ID, 'congrats').text)
