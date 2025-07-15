@@ -53,3 +53,14 @@ def test_get_attr_method(browser):
     browser.find_element(By.ID, 'checkButton').click()
     alert = browser.switch_to.alert
     print(alert.text)
+
+
+def test_is_selected_method(browser):
+    browser.get('https://parsinger.ru/selenium/5.5/3/1.html')
+    blocks = browser.find_elements(By.CLASS_NAME, 'parent')
+    result = 0
+    for block in blocks:
+        if block.find_element(By.CLASS_NAME, 'checkbox').is_selected():
+            value = block.find_element(By.TAG_NAME, 'textarea').get_attribute('value')
+            result += int(value)
+    print(result)
