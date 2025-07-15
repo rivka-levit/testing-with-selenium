@@ -31,3 +31,18 @@ def test_get_attribute(browser):
     browser.find_element(By.ID, 'secret-key-button').click()
     answer = browser.find_element(By.ID, 'secret-key-button')
     print(answer.get_attribute('data'))
+
+
+def test_play_hex_attribute(browser):
+    browser.get('https://parsinger.ru/selenium/5.5/5/1.html')
+    blocks = browser.find_elements(By.CSS_SELECTOR, '#main-container > div')
+    for block in blocks:
+        color = block.find_element(By.TAG_NAME, 'span').text
+        block.find_element(By.CSS_SELECTOR, f'select > option[value="{color}"]').click()
+        block.find_element(By.CSS_SELECTOR, f'div > button[data-hex="{color}"]').click()
+        block.find_element(By.CSS_SELECTOR, 'input[type="checkbox"]').click()
+        block.find_element(By.CSS_SELECTOR, 'input[type="text"]').send_keys(color)
+        block.find_element(By.XPATH, './/button[text()="Проверить"]').click()
+    browser.find_element(By.XPATH, '//button[text()="Проверить все элементы"]').click()
+    alert = browser.switch_to.alert
+    print(alert.text)
