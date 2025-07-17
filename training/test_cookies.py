@@ -80,3 +80,15 @@ def test_cookie_max_expiry(browser):
         browser.back()
 
     print(result)
+
+
+def test_get_secret_cookies(browser):
+    browser.get('https://parsinger.ru/methods/3/index.html')
+    cookies = browser.get_cookies()
+    result = 0
+
+    for cookie in cookies:
+        if cookie['name'].startswith('secret_cookie_'):
+            result += int(cookie['value'])
+
+    print(result)
