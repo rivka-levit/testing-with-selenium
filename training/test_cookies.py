@@ -2,8 +2,9 @@
 Test work with cookies in Selenium.
 Command: pytest training\test_cookies.py
 """
+
 import time
-from pprint import pprint
+
 from selenium.webdriver.common.by import By
 
 COOKIES = [{'name': 'KXIYO4xMrWh', 'value': 'ibyAZPfXAsPqptPaNyL'},
