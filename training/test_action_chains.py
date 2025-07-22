@@ -4,6 +4,7 @@ Command: pytest training\test_action_chains.py
 """
 
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 
 
@@ -20,3 +21,20 @@ def test_double_click(browser):
     element = browser.find_element(By.ID, 'dblclick-area')
     ActionChains(browser).double_click(element).perform()
     print(browser.find_element(By.ID, 'password').text)
+
+
+def test_up_down_keys(browser):
+    browser.get('https://parsinger.ru/selenium/7/7.3.3/index.html')
+    actions = ActionChains(browser)
+    (actions.key_down(Keys.CONTROL)
+         .key_down(Keys.ALT)
+         .key_down(Keys.SHIFT)
+         .key_down('T')
+         .perform())
+    (actions.key_up(Keys.CONTROL)
+         .key_up(Keys.ALT)
+         .key_up(Keys.SHIFT)
+         .key_up('T')
+         .perform())
+
+    print(browser.find_element(By.CSS_SELECTOR, '[key="access_code"]').text)
