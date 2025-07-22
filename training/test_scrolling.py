@@ -8,6 +8,7 @@ import time
 from selenium.common import NoSuchElementException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.action_chains import ActionChains
 
 
 def test_scrolling(browser):
@@ -39,3 +40,16 @@ def test_scroll_by_arrow_down(browser):
         else:
             print(password.text)
             break
+
+
+def test_scroll_with_end_key(browser):
+    browser.get('https://parsinger.ru/selenium/7/7.3.5/index.html')
+    containers = browser.find_elements(By.CLASS_NAME, 'scroll-container')
+    actions = ActionChains(browser)
+
+    for container in containers:
+        actions.click(container).send_keys(Keys.END).perform()
+        # actions.send_keys_to_element(container, Keys.END).perform()
+        time.sleep(2)
+
+    print(browser.find_element(By.CSS_SELECTOR, '[key="access_code"]').text)
