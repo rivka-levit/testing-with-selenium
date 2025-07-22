@@ -53,3 +53,21 @@ def test_scroll_with_end_key(browser):
         time.sleep(2)
 
     print(browser.find_element(By.CSS_SELECTOR, '[key="access_code"]').text)
+
+
+def test_scroll_by_amount(browser):
+    browser.get('https://parsinger.ru/selenium/7/7.4.1/index.html')
+    actions = ActionChains(browser)
+
+    actions.scroll_by_amount(0, 700).perform()
+    time.sleep(4)
+    code = browser.find_element(By.CLASS_NAME, 'countdown').text.lstrip('Код: ')
+
+    actions.scroll_by_amount(0, 1300).perform()
+    time.sleep(2)
+    browser.find_element(By.TAG_NAME, 'input').send_keys(code)
+    browser.find_element(By.TAG_NAME, 'button').click()
+    time.sleep(2)
+
+    final_key = browser.find_element(By.ID, 'final-key').text
+    print(final_key.split(' ')[-1])
