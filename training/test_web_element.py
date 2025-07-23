@@ -1,3 +1,8 @@
+"""
+Test work with elements in Selenium.
+Command: pytest training\test_web_element.py
+"""
+
 import time
 
 from selenium.webdriver.common.by import By
@@ -46,3 +51,14 @@ def test_play_hex_attribute(browser):
     browser.find_element(By.XPATH, '//button[text()="Проверить все элементы"]').click()
     alert = browser.switch_to.alert
     print(alert.text)
+
+
+def test_find_nums_by_checkboxes(browser):
+    browser.get('http://parsinger.ru/scroll/2/index.html')
+    result = 0
+    for i in range(1, 101):
+        browser.find_element(By.ID, f'{i}').click()
+        number = browser.find_element(By.ID, f'result{i}').text.strip()
+        if number:
+            result += int(number)
+    print(result)
