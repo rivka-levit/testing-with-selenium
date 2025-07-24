@@ -71,3 +71,26 @@ def test_scroll_by_amount(browser):
 
     final_key = browser.find_element(By.ID, 'final-key').text
     print(final_key.split(' ')[-1])
+
+
+def test_infinite_scroll(browser):
+    browser.get('http://parsinger.ru/infiniti_scroll_1/')
+    frame = browser.find_element(By.ID, 'scroll-container')
+    start_boxes = set()
+    result = 0
+    actions = ActionChains(browser)
+    actions.move_to_element(frame).click().send_keys(Keys.END).perform()
+    while True:
+        boxes = set(frame.find_elements(By.TAG_NAME, 'span'))
+        new_boxes = boxes.difference(start_boxes)
+        time.sleep(2)
+        if new_boxes:
+            for box in new_boxes:
+                start_boxes.add(box)
+                result += int(box.text)
+        else:
+            break
+
+        actions.send_keys(Keys.END).perform()
+
+    print(result)
