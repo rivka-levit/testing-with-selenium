@@ -111,3 +111,26 @@ def test_infinite_scroll(browser):
         actions.send_keys(Keys.END).perform()
 
     print(result)
+
+
+def test_scroll_to_end_several_frames(browser):
+    browser.get('http://parsinger.ru/infiniti_scroll_3/')
+    frames = browser.find_elements(By.XPATH, '//div[contains(@id, "scroll-container")]')
+    result = cnt = 0
+    actions = ActionChains(browser)
+
+    for frame in frames:
+        actions.move_to_element(frame).click().send_keys(Keys.END).perform()
+        elements = frame.find_elements(By.TAG_NAME, 'span')
+
+        while cnt < len(elements):
+            actions.send_keys(Keys.END).perform()
+            cnt = len(elements)
+            time.sleep(1)
+            elements = frame.find_elements(By.TAG_NAME, 'span')
+
+        result += sum([int(i.text) for i in elements])
+        actions.release().perform()
+        cnt = 0
+
+    print(result)
