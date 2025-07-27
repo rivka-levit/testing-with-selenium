@@ -62,3 +62,13 @@ def test_find_nums_by_checkboxes(browser):
         if number:
             result += int(number)
     print(result)
+
+
+def test_find_uranium_elements(browser):
+    browser.get('https://parsinger.ru/selenium/5.7/1/index.html')
+    pieces = browser.find_elements(By.CLASS_NAME, 'clickMe')
+    for piece in pieces:
+        browser.execute_script('return arguments[0].scrollIntoView();', piece)
+        piece.click()
+    time.sleep(.5)
+    print(browser.switch_to.alert.text)
