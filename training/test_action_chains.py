@@ -2,6 +2,7 @@
 Test work with cookies in Selenium.
 Command: pytest training\test_action_chains.py
 """
+import time
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
@@ -46,3 +47,16 @@ def test_context_click(browser):
     ActionChains(browser).context_click(element).perform()
     browser.find_element(By.CSS_SELECTOR, '[data-action="get_password"]').click()
     print(browser.find_element(By.CSS_SELECTOR, '[key="access_code"]').text)
+
+
+def test_click_and_hold(browser):
+    browser.get('https://parsinger.ru/selenium/5.7/5/index.html')
+    actions = ActionChains(browser)
+    buttons = browser.find_elements(By.CLASS_NAME, 'timer_button')
+
+    for btn in buttons:
+        tm = float(btn.get_attribute('value'))
+        actions.click_and_hold(btn).pause(tm + 0.1).release().perform()
+
+    time.sleep(.5)
+    print(browser.switch_to.alert.text)
