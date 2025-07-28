@@ -9,6 +9,7 @@ from selenium.common import NoSuchElementException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.remote.webelement import WebElement
 
 
 def test_scrolling(browser):
@@ -134,3 +135,35 @@ def test_scroll_to_end_several_frames(browser):
         cnt = 0
 
     print(result)
+
+
+def test_even_checkboxes(browser):
+
+    def check_even_checkboxes(container: WebElement) -> None:
+        boxes = container.find_elements(By.TAG_NAME, 'input')
+        for box in boxes:
+            value = int(box.get_attribute('value'))
+            if value % 2 == 0:
+                box.click()
+
+    browser.get('https://parsinger.ru/selenium/5.7/4/index.html')
+    frame = browser.find_element(By.ID, 'main_container')
+
+    actions = ActionChains(browser)
+    actions.move_to_element(frame).click().perform()
+
+    start_blocks = set()
+    blocks = frame.find_elements(By.CLASS_NAME, 'child_container')
+    new_blocks = [i for i in blocks if i not in start_blocks]
+
+    while new_blocks:
+        for block in new_blocks:
+            check_even_checkboxes(block)
+            start_blocks.add(block)
+        browser.execute_script('arguments[0].scrollTop = arguments[0].scrollHeight', frame)
+        actions.scroll_by_amount(0, 200).perform()
+        blocks = frame.find_elements(By.CLASS_NAME, 'child_container')
+        new_blocks = [i for i in blocks if i not in start_blocks]
+
+    frame.find_element(By.CLASS_NAME, 'alert_button').click()
+    print(browser.switch_to.alert.text)
