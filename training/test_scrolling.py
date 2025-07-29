@@ -167,3 +167,38 @@ def test_even_checkboxes(browser):
 
     frame.find_element(By.CLASS_NAME, 'alert_button').click()
     print(browser.switch_to.alert.text)
+
+
+def test_auto_like_infinite_scroll(browser):
+
+    def get_new_cards_list():
+        cards = container.find_elements(By.CLASS_NAME, 'card')
+        return [i for i in cards if i not in start_cards]
+
+    browser.get('https://parsinger.ru/selenium/7/7.5/index.html')
+    container = browser.find_element(By.ID, 'container')
+
+    actions = ActionChains(browser)
+    actions.move_to_element(container).click().perform()
+
+    start_cards = set()
+    new_cards = get_new_cards_list()
+
+    result = 0
+
+    while new_cards:
+        for card in new_cards:
+            start_cards.add(card)
+            actions.scroll_to_element(card).perform()
+            card.find_element(By.CLASS_NAME, 'like-btn').click()
+            time.sleep(.1)
+            result += int(card.find_element(By.CLASS_NAME, 'big-number').text)
+
+        browser.execute_script(
+            'arguments[0].scrollTop = arguments[0].scrollHeight',
+            container
+        )
+        time.sleep(.1)
+        new_cards = get_new_cards_list()
+
+    print(result)
