@@ -53,3 +53,13 @@ def test_set_window_size(browser):
     browser.find_element(By.ID, 'checkSizeBtn').click()
     time.sleep(1)
     print(browser.find_element(By.ID,'secret').text)
+
+
+def test_check_window_size(browser):
+    browser.get('https://parsinger.ru/selenium/8/8.2.2/index.html')
+    answer = sum(browser.get_window_size().values())
+    browser.find_element(By.ID, 'answer').send_keys(str(answer))
+    time.sleep(.1)
+    browser.find_element(By.ID, 'checkBtn').click()
+    time.sleep(1)
+    print(browser.find_element(By.ID, 'resultMessage').text)
