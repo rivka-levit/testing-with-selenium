@@ -44,3 +44,12 @@ def test_switch_to_tabs(browser):
     browser.find_element(By.ID, 'sumInput').send_keys(str(result))
     browser.find_element(By.ID, 'checkButton').click()
     print(browser.find_element(By.ID, 'passwordDisplay').text)
+
+
+def test_set_window_size(browser):
+    browser.get('https://parsinger.ru/selenium/8/8.2.1/index.html')
+    browser.set_window_size(1200, 720)
+    time.sleep(1)
+    browser.find_element(By.ID, 'checkSizeBtn').click()
+    time.sleep(1)
+    print(browser.find_element(By.ID,'secret').text)
