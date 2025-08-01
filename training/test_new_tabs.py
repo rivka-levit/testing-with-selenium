@@ -63,3 +63,24 @@ def test_check_window_size(browser):
     browser.find_element(By.ID, 'checkBtn').click()
     time.sleep(1)
     print(browser.find_element(By.ID, 'resultMessage').text)
+
+
+def test_modal_wins(browser):
+    browser.get('https://parsinger.ru/selenium/8/8.3.1/index.html')
+
+    browser.find_element(By.ID, 'alertButton').click()
+    time.sleep(.1)
+    browser.switch_to.alert.accept()
+
+    browser.find_element(By.ID, 'promptButton').click()
+    time.sleep(.1)
+    prompt = browser.switch_to.alert
+    prompt.send_keys('Alert')
+    prompt.accept()
+
+    browser.find_element(By.ID, 'confirmButton').click()
+    time.sleep(.1)
+    browser.switch_to.alert.accept()
+
+    time.sleep(5)
+    print(browser.find_element(By.ID, 'secretKey').text)
