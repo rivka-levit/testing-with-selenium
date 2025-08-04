@@ -27,3 +27,15 @@ def test_matrix(browser):
         browser.switch_to.default_content()
     browser.switch_to.frame('frame4')
     print(browser.find_element(By.TAG_NAME, 'h2').text)
+
+
+def test_labyrinth_of_frames(browser):
+    browser.get('https://parsinger.ru/selenium/8/8.4.3/index.html')
+
+    for i in range(4):
+        iframe = browser.find_element(By.TAG_NAME, 'iframe')
+        browser.switch_to.frame(iframe)
+        time.sleep(1)
+        browser.find_element(By.CLASS_NAME, 'button').click()
+
+    print(browser.find_element(By.CLASS_NAME, 'password-container').text)
