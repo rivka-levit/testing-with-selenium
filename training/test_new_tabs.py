@@ -96,3 +96,19 @@ def test_find_code_alerts(browser):
         if result:
             print(result)
             break
+
+
+def test_find_correct_code_in_alerts(browser):
+    browser.get('https://parsinger.ru/selenium/5.8/2/index.html')
+    buttons = browser.find_elements(By.CLASS_NAME, 'buttons')
+    for btn in buttons:
+        btn.click()
+        alert = browser.switch_to.alert
+        pin = alert.text
+        alert.accept()
+        browser.find_element(By.ID, 'input').send_keys(pin)
+        browser.find_element(By.ID, 'check').click()
+        result = browser.find_element(By.ID, 'result').text
+        if result != 'Неверный пин-код':
+            print(result)
+            break
