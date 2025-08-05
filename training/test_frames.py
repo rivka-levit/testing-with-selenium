@@ -39,3 +39,5 @@ def test_labyrinth_of_frames(browser):
         browser.find_element(By.CLASS_NAME, 'button').click()
 
     print(browser.find_element(By.CLASS_NAME, 'password-container').text)
+
+
