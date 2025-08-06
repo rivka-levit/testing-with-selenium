@@ -130,3 +130,10 @@ def test_enter_code_in_alerts(browser):
         if result != 'Неверный пин-код':
             print(result)
             break
+
+
+def test_set_tab_size_with_edges(browser):
+    browser.get('http://parsinger.ru/window_size/1/')
+    browser.set_window_size(571, 702)
+    time.sleep(1)
+    print(browser.find_element(By.ID, 'result').text)
