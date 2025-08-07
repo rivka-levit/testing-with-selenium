@@ -7,6 +7,12 @@ import time
 
 from selenium.webdriver.common.by import By
 
+CHROME_EDGE_WIDTH = 16
+CHROME_EDGE_HEIGHT = 147
+
+window_size_x = [516, 648, 680, 701, 730, 750, 805, 820, 855, 890, 955, 1000]
+window_size_y = [270, 300, 340, 388, 400, 421, 474, 505, 557, 600, 653, 1000]
+
 
 def test_open_new_tabs(browser):
     browser.get('about:blank')
@@ -144,17 +150,40 @@ def test_find_result_in_correct_tab_size(browser):
     def is_found_result(w: int) -> bool:
         for height in window_size_y:
             browser.get('http://parsinger.ru/window_size/2/index.html')
-            browser.set_window_size(w+16, height+147)
-            time.sleep(.2)
+            browser.set_window_size(
+                w + CHROME_EDGE_WIDTH,
+                height + CHROME_EDGE_HEIGHT
+            )
+            time.sleep(.1)
             result = browser.find_element(By.ID, 'result').text
             if result:
                 print(result)
                 return True
         return False
 
-    window_size_x = [616, 648, 680, 701, 730, 750, 805, 820, 855, 890, 955, 1000]
-    window_size_y = [300, 330, 340, 388, 400, 421, 474, 505, 557, 600, 653, 1000]
+    for width in window_size_x:
+        if is_found_result(width):
+            break
+
+
+def test_find_correct_tab_size(browser):
+
+    def is_found_result(w: int) -> bool:
+        for height in window_size_y:
+            browser.get('http://parsinger.ru/window_size/2/index.html')
+            browser.set_window_size(
+                w + CHROME_EDGE_WIDTH,
+                height + CHROME_EDGE_HEIGHT
+            )
+            time.sleep(.01)
+            if browser.find_element(By.ID, 'result').text:
+                return True
+        return False
 
     for width in window_size_x:
         if is_found_result(width):
+            size = browser.get_window_size()
+            size['width'] = size['width'] - CHROME_EDGE_WIDTH
+            size['height'] = size['height'] - CHROME_EDGE_HEIGHT
+            print(size)
             break
