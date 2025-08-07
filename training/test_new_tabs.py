@@ -5,6 +5,8 @@ Command: pytest training\test_new_tabs.py
 
 import time
 
+from math import sqrt
+
 from selenium.webdriver.common.by import By
 
 CHROME_EDGE_WIDTH = 16
@@ -201,3 +203,25 @@ def test_extract_title_from_tabs(browser):
         browser.switch_to.window(browser.window_handles[0])
 
     print(result)
+
+
+def test_find_codes_on_tabs(browser):
+    sites = ['https://parsinger.ru/blank/1/1.html',
+             'https://parsinger.ru/blank/1/2.html',
+             'https://parsinger.ru/blank/1/3.html',
+             'https://parsinger.ru/blank/1/4.html',
+             'https://parsinger.ru/blank/1/5.html',
+             'https://parsinger.ru/blank/1/6.html']
+
+    browser.get(sites[0])
+    result = 0
+
+    for site in sites[1:]:
+        browser.execute_script(f'window.open("{site}");', '_blank')
+
+    for tab in browser.window_handles:
+        browser.switch_to.window(tab)
+        browser.find_element(By.CSS_SELECTOR, 'input.checkbox_class').click()
+        result += sqrt(int(browser.find_element(By.ID, 'result').text))
+
+    print(round(result, 9))
