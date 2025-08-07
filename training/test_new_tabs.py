@@ -137,3 +137,24 @@ def test_set_tab_size_with_edges(browser):
     browser.set_window_size(571, 702)
     time.sleep(1)
     print(browser.find_element(By.ID, 'result').text)
+
+
+def test_find_result_in_correct_tab_size(browser):
+
+    def is_found_result(w: int) -> bool:
+        for height in window_size_y:
+            browser.get('http://parsinger.ru/window_size/2/index.html')
+            browser.set_window_size(w+16, height+147)
+            time.sleep(.2)
+            result = browser.find_element(By.ID, 'result').text
+            if result:
+                print(result)
+                return True
+        return False
+
+    window_size_x = [616, 648, 680, 701, 730, 750, 805, 820, 855, 890, 955, 1000]
+    window_size_y = [300, 330, 340, 388, 400, 421, 474, 505, 557, 600, 653, 1000]
+
+    for width in window_size_x:
+        if is_found_result(width):
+            break
