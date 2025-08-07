@@ -187,3 +187,17 @@ def test_find_correct_tab_size(browser):
             size['height'] = size['height'] - CHROME_EDGE_HEIGHT
             print(size)
             break
+
+
+def test_extract_title_from_tabs(browser):
+    browser.get('http://parsinger.ru/blank/3/index.html')
+    buttons = browser.find_elements(By.CLASS_NAME, 'buttons')
+    result = 0
+
+    for btn in buttons:
+        btn.click()
+        browser.switch_to.window(browser.window_handles[-1])
+        result += int(browser.title)
+        browser.switch_to.window(browser.window_handles[0])
+
+    print(result)
