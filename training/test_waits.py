@@ -18,3 +18,11 @@ def test_explicit_waits(browser):
         wait.until(EC.element_to_be_clickable(btn)).click()
 
     print(wait.until(EC.presence_of_element_located((By.ID, 'message'))).text)
+
+
+def test_wait_correct_title(browser):
+    browser.get('https://parsinger.ru/selenium/9/9.2.1/index.html')
+    browser.find_element(By.ID, 'startScan').click()
+    wait = WebDriverWait(browser, 30)
+    wait.until(EC.title_is('Access Granted'))
+    print(browser.find_element(By.ID, 'passwordValue').text)
