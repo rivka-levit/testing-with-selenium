@@ -2,8 +2,9 @@
 Test work with implicit and explicit waits.
 Command: pytest training\test_waits.py
 """
-
+import time
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support import expected_conditions as EC  # noqa
 from selenium.webdriver.support.ui import WebDriverWait
 
@@ -26,3 +27,13 @@ def test_wait_correct_title(browser):
     wait = WebDriverWait(browser, 30)
     wait.until(EC.title_is('Access Granted'))
     print(browser.find_element(By.ID, 'passwordValue').text)
+
+
+def test_implicit_wait_abcd(browser):
+    browser.get('http://parsinger.ru/selenium/9/9.3.1/index.html')
+    browser.implicitly_wait(7)
+    browser.find_element(By.ID, 'startButton').click()
+    for _ in range(5):
+        btn = browser.find_element(By.ID, 'dynamicButton')
+        btn.click()
+    print(browser.find_element(By.ID, 'secretPassword').text)
