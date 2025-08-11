@@ -7,6 +7,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support import expected_conditions as EC  # noqa
 from selenium.webdriver.support.ui import WebDriverWait
+from selenium.common.exceptions import TimeoutException
 
 
 
@@ -54,3 +55,19 @@ def test_wait_url_changes(browser):
     wait = WebDriverWait(browser, 10)
     wait.until(EC.url_changes(url))
     print(browser.find_element(By.ID, 'password').text)
+
+
+def test_search_bananas(browser):
+    browser.get('http://parsinger.ru/selenium/9/9.4.1/3VT6JyXnI7EQqG0632xSAQyD4Z.html')
+    while True:
+        browser.find_element(By.ID, 'searchLink').click()
+        try:
+            wait = WebDriverWait(browser, 2)
+            wait.until(EC.url_contains('qLChv49'))
+        except TimeoutException:
+            pass
+        else:
+            browser.find_element(By.ID, 'checkButton').click()
+            time.sleep(3)  # Time to see bananas
+            print(browser.find_element(By.CSS_SELECTOR, '#result p').text)
+            break
