@@ -37,3 +37,11 @@ def test_implicit_wait_abcd(browser):
         btn = browser.find_element(By.ID, 'dynamicButton')
         btn.click()
     print(browser.find_element(By.ID, 'secretPassword').text)
+
+
+def test_wait_exact_url(browser):
+    browser.get('https://parsinger.ru/selenium/9/9.4.3/index.html')
+    browser.find_element(By.CSS_SELECTOR, '.button-container a.btn:last-child').click()
+    wait = WebDriverWait(browser, 20)
+    wait.until(EC.url_to_be('https://parsinger.ru/selenium/9/9.4.3/final.html?key=secure'))
+    print(browser.find_element(By.ID, 'password').text)
