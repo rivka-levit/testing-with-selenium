@@ -58,16 +58,14 @@ def test_wait_url_changes(browser):
 
 
 def test_search_bananas(browser):
+    """Use EC without waiting."""
+
     browser.get('http://parsinger.ru/selenium/9/9.4.1/3VT6JyXnI7EQqG0632xSAQyD4Z.html')
-    while True:
+    expected = EC.url_contains('qLChv49')
+
+    while not expected(browser):
         browser.find_element(By.ID, 'searchLink').click()
-        try:
-            wait = WebDriverWait(browser, 2)
-            wait.until(EC.url_contains('qLChv49'))
-        except TimeoutException:
-            pass
-        else:
-            browser.find_element(By.ID, 'checkButton').click()
-            time.sleep(3)  # Time to see bananas
-            print(browser.find_element(By.CSS_SELECTOR, '#result p').text)
-            break
+
+    browser.find_element(By.ID, 'checkButton').click()
+    time.sleep(3)  # Time to see bananas
+    print(browser.find_element(By.CSS_SELECTOR, '#result p').text)
