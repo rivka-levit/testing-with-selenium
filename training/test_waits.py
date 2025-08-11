@@ -69,3 +69,23 @@ def test_search_bananas(browser):
     browser.find_element(By.ID, 'checkButton').click()
     time.sleep(3)  # Time to see bananas
     print(browser.find_element(By.CSS_SELECTOR, '#result p').text)
+
+
+def test_url_matches(browser):
+    browser.get('https://parsinger.ru/selenium/9/9.4.2/index.html')
+    expected_final_url = EC.url_contains('index_2')
+    pattern = r'https://parsinger\.ru/selenium/9/9\.4\.2/ok/ok_\d+\.html'
+    result = 0
+
+    browser.find_element(By.ID, 'startButton').click()
+
+    while not expected_final_url(browser):
+        current_url = browser.current_url
+        if EC.url_matches(pattern)(browser):
+            num = int(browser.find_element(By.CLASS_NAME, 'number').text)
+            result += num
+        WebDriverWait(browser, 5).until(EC.url_changes(current_url))
+
+    browser.find_element(By.ID, 'sumInput').send_keys(str(result))
+    browser.find_element(By.ID, 'checkButton').click()
+    print(browser.find_element(By.ID, 'result').text)
