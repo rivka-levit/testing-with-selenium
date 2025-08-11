@@ -45,3 +45,12 @@ def test_wait_exact_url(browser):
     wait = WebDriverWait(browser, 20)
     wait.until(EC.url_to_be('https://parsinger.ru/selenium/9/9.4.3/final.html?key=secure'))
     print(browser.find_element(By.ID, 'password').text)
+
+
+def test_wait_url_changes(browser):
+    browser.get('https://parsinger.ru/selenium/9/9.4.4/index.html')
+    browser.find_element(By.CLASS_NAME, 'btn').click()
+    url = browser.current_url
+    wait = WebDriverWait(browser, 10)
+    wait.until(EC.url_changes(url))
+    print(browser.find_element(By.ID, 'password').text)
