@@ -106,3 +106,22 @@ def test_visibility_of_element(browser):
     )
     btn.click()
     print(browser.find_element(By.ID, 'password-display').text)
+
+
+def test_visibility_all_elements(browser):
+    browser.get('https://parsinger.ru/selenium/9/9.5.3/index.html')
+    browser.find_element(By.ID, 'showProducts').click()
+
+    products = WebDriverWait(browser, 10).until(
+        EC.visibility_of_all_elements_located((By.CLASS_NAME, 'product'))
+    )
+    result = sum([int(
+        i.find_element(By.CLASS_NAME, 'price').text.lstrip('$')
+    ) for i in products])
+
+    browser.find_element(By.ID, 'sumInput').send_keys(str(result))
+    browser.find_element(By.ID, 'checkSum').click()
+    msg = WebDriverWait(browser, 10).until(
+        EC.visibility_of_element_located((By.ID, 'secretMessage'))
+    )
+    print(msg.text)
