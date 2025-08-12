@@ -125,3 +125,11 @@ def test_visibility_all_elements(browser):
         EC.visibility_of_element_located((By.ID, 'secretMessage'))
     )
     print(msg.text)
+
+
+def test_currency_exchange(browser):
+    browser.get('https://parsinger.ru/selenium/9/9.6.1/index.html')
+    WebDriverWait(browser, 60).until(
+        EC.text_to_be_present_in_element((By.ID, 'usd-rate'), '75.50 ₽')
+    )
+    print(browser.find_element(By.ID, 'secret-code').text)
