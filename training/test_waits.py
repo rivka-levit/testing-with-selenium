@@ -97,3 +97,12 @@ def test_presence_of_element(browser):
         EC.presence_of_element_located((By.ID, 'order-number'))
     )
     print(number.text)
+
+
+def test_visibility_of_element(browser):
+    browser.get('https://parsinger.ru/selenium/9/9.5.2/index.html')
+    btn = WebDriverWait(browser, 10).until(
+        EC.visibility_of_element_located((By.ID, 'ghost-button'))
+    )
+    btn.click()
+    print(browser.find_element(By.ID, 'password-display').text)
