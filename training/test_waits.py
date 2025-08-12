@@ -89,3 +89,11 @@ def test_url_matches(browser):
     browser.find_element(By.ID, 'sumInput').send_keys(str(result))
     browser.find_element(By.ID, 'checkButton').click()
     print(browser.find_element(By.ID, 'result').text)
+
+
+def test_presence_of_element(browser):
+    browser.get('https://parsinger.ru/selenium/9/9.5.1/index.html')
+    number = WebDriverWait(browser, 10).until(
+        EC.presence_of_element_located((By.ID, 'order-number'))
+    )
+    print(number.text)
