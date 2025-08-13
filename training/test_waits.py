@@ -162,3 +162,17 @@ def test_wait_attribute_text(browser):
         EC.visibility_of_element_located((By.ID, 'password'))
     )
     print(password.text)
+
+
+def test_element_includes_attribute(browser):
+    browser.get('https://parsinger.ru/selenium/9/9.6.4/index.html')
+    booking_number = browser.find_element(By.ID, 'booking-number').text
+    WebDriverWait(browser, 10).until(
+        EC.element_attribute_to_include((By.ID, 'booking-number'), 'confirmed')
+    )
+    browser.find_element(By.ID, 'booking-input').send_keys(booking_number)
+    browser.find_element(By.ID, 'check-button').click()
+    password = WebDriverWait(browser, 10).until(
+        EC.visibility_of_element_located((By.CLASS_NAME, 'password-value'))
+    )
+    print(password.text)
