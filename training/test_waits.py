@@ -4,10 +4,8 @@ Command: pytest training\test_waits.py
 """
 import time
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support import expected_conditions as EC  # noqa
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.common.exceptions import TimeoutException
 
 
 
@@ -133,3 +131,18 @@ def test_currency_exchange(browser):
         EC.text_to_be_present_in_element((By.ID, 'usd-rate'), '75.50 ₽')
     )
     print(browser.find_element(By.ID, 'secret-code').text)
+
+
+def test_find_recipie(browser):
+    browser.get('https://parsinger.ru/selenium/9/9.6.2/index.html')
+    browser.find_element(By.ID, 'ask-jaskier').click()
+    WebDriverWait(browser, 30).until(
+        EC.text_to_be_present_in_element_value(
+            (By.ID, 'recipe_field'),
+            'Селениумий'
+        )
+    )
+    result = WebDriverWait(browser, 10).until(
+        EC.visibility_of_element_located((By.ID, 'password'))
+    )
+    print(result.text)
