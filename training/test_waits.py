@@ -176,3 +176,24 @@ def test_element_includes_attribute(browser):
         EC.visibility_of_element_located((By.CLASS_NAME, 'password-value'))
     )
     print(password.text)
+
+
+def test_order_confirm(browser):
+    browser.get('https://parsinger.ru/selenium/9/9.7.1/index.html')
+    browser.find_element(By.ID, 'address').send_keys('Some Address')
+    browser.find_element(By.CSS_SELECTOR, 'option[value="card"]').click()
+    btn_confirm = WebDriverWait(browser, 10).until(
+        EC.element_to_be_clickable((By.ID, 'submit-order'))
+    )
+    btn_confirm.click()
+
+    WebDriverWait(browser, 10).until(EC.all_of(
+        EC.invisibility_of_element_located((By.ID, 'spinner')),
+        EC.presence_of_element_located((By.ID, 'modal'))
+    ))
+    browser.find_element(By.ID, 'confirm-address').click()
+    WebDriverWait(browser, 10).until(
+        EC.invisibility_of_element_located((By.ID, 'modal'))
+    )
+    browser.find_element(By.ID, 'get-code').click()
+    print(browser.find_element(By.ID, 'result').text)
