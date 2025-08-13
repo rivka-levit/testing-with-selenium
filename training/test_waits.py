@@ -146,3 +146,19 @@ def test_find_recipie(browser):
         EC.visibility_of_element_located((By.ID, 'password'))
     )
     print(result.text)
+
+
+def test_wait_attribute_text(browser):
+    browser.get('https://parsinger.ru/selenium/9/9.6.3/index.html')
+    WebDriverWait(browser, 15).until(
+        EC.text_to_be_present_in_element_attribute(
+            (By.ID, 'main-image'),
+            'src',
+            'success'
+        )
+    )
+    browser.find_element(By.ID, 'main-image').click()
+    password = WebDriverWait(browser, 10).until(
+        EC.visibility_of_element_located((By.ID, 'password'))
+    )
+    print(password.text)
