@@ -197,3 +197,18 @@ def test_order_confirm(browser):
     )
     browser.find_element(By.ID, 'get-code').click()
     print(browser.find_element(By.ID, 'result').text)
+
+
+def test_staleness_of_element(browser):
+    browser.get('https://parsinger.ru/selenium/9/9.7.2/index.html')
+    browser.find_element(By.CLASS_NAME, 'search-box').send_keys('test')
+    browser.find_element(By.ID, 'search-button').click()
+    old_result = WebDriverWait(browser, 10).until(
+        EC.presence_of_element_located((By.ID, 'old-result'))
+    )
+    WebDriverWait(browser, 10).until(EC.all_of(
+        EC.staleness_of(old_result),
+        EC.visibility_of_element_located((By.ID, 'new-result'))
+    ))
+    browser.find_element(By.ID, 'secret-button').click()
+    print(browser.find_element(By.ID, 'result').text)
