@@ -223,3 +223,14 @@ def test_wait_new_window_open(browser):
     alert = WebDriverWait(browser, 10).until(EC.alert_is_present())
     print(alert.text)
     alert.accept()
+
+
+def test_wait_exact_title(browser):
+    browser.get('http://parsinger.ru/expectations/3/index.html')
+
+    WebDriverWait(browser, 10).until(
+        EC.element_to_be_clickable((By.ID, 'btn'))
+    ).click()
+
+    WebDriverWait(browser, 20).until(EC.title_is('345FDG3245SFD'))
+    print(browser.find_element(By.ID, 'result').text)
