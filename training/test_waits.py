@@ -212,3 +212,14 @@ def test_staleness_of_element(browser):
     ))
     browser.find_element(By.ID, 'secret-button').click()
     print(browser.find_element(By.ID, 'result').text)
+
+
+def test_wait_new_window_open(browser):
+    browser.get('https://parsinger.ru/selenium/9/9.7.3/index.html')
+    browser.find_element(By.ID, 'summonBtn').click()
+    WebDriverWait(browser, 10).until(EC.number_of_windows_to_be(5))
+    browser.find_element(By.ID, 'passwordBtn').click()
+
+    alert = WebDriverWait(browser, 10).until(EC.alert_is_present())
+    print(alert.text)
+    alert.accept()
