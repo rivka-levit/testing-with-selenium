@@ -234,3 +234,12 @@ def test_wait_exact_title(browser):
 
     WebDriverWait(browser, 20).until(EC.title_is('345FDG3245SFD'))
     print(browser.find_element(By.ID, 'result').text)
+
+
+def test_wait_title_contains(browser):
+    browser.get('http://parsinger.ru/expectations/4/index.html')
+    WebDriverWait(browser, 5).until(
+        EC.element_to_be_clickable((By.ID, 'btn'))
+    ).click()
+    WebDriverWait(browser, 30, poll_frequency=0.1).until(EC.title_contains('JK8HQ'))
+    print(browser.title)
