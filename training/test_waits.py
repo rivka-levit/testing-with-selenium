@@ -243,3 +243,14 @@ def test_wait_title_contains(browser):
     ).click()
     WebDriverWait(browser, 30, poll_frequency=0.1).until(EC.title_contains('JK8HQ'))
     print(browser.title)
+
+
+def test_wait_element_by_class_name(browser):
+    browser.get('https://parsinger.ru/expectations/6/index.html')
+    WebDriverWait(browser, 5).until(
+        EC.element_to_be_clickable((By.ID, 'btn'))
+    ).click()
+    element = WebDriverWait(browser, 30, poll_frequency=0.1).until(
+        EC.presence_of_element_located((By.CLASS_NAME, 'BMH21YY'))
+    )
+    print(element.text)
