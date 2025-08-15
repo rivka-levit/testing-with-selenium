@@ -262,3 +262,20 @@ def test_wait_div_appears(browser):
     wait.until(EC.presence_of_element_located((By.ID, 'qQm9y1rk'))).click()
     alert = wait.until(EC.alert_is_present())
     print(alert.text)
+
+
+def test_wait_certain_ids(browser):
+    ids_to_find = {'xhkVEkgm', 'QCg2vOX7', '8KvuO5ja', 'CFoCZ3Ze', '8CiPCnNB',
+                   'XuEMunrz', 'vmlzQ3gH', 'axhUiw2I', 'jolHZqD1', 'ZM6Ms3tw',
+                   '25a2X14r', 'aOSMX9tb', 'YySk7Ze3', 'QQK13iyY', 'j7kD7uIR'}
+    browser.get('https://parsinger.ru/selenium/5.9/3/index.html')
+    boxes = browser.find_elements(By.CLASS_NAME, 'box')
+
+    for box in boxes:
+        box_id = box.get_attribute('id')
+        if box_id in ids_to_find:
+            WebDriverWait(browser, 20).until(EC.visibility_of(box))
+            box.click()
+            if alert := EC.alert_is_present()(browser):
+                print(alert.text)
+                break
