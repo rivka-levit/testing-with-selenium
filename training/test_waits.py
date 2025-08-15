@@ -254,3 +254,11 @@ def test_wait_element_by_class_name(browser):
         EC.presence_of_element_located((By.CLASS_NAME, 'BMH21YY'))
     )
     print(element.text)
+
+
+def test_wait_div_appears(browser):
+    browser.get('https://parsinger.ru/selenium/5.9/2/index.html')
+    wait = WebDriverWait(browser, 30)
+    wait.until(EC.presence_of_element_located((By.ID, 'qQm9y1rk'))).click()
+    alert = wait.until(EC.alert_is_present())
+    print(alert.text)
