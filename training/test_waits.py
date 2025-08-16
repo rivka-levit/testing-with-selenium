@@ -279,3 +279,15 @@ def test_wait_certain_ids(browser):
             if alert := EC.alert_is_present()(browser):
                 print(alert.text)
                 break
+
+
+def test_wait_banner_disappeared(browser):
+    browser.get('https://parsinger.ru/selenium/5.9/4/index.html')
+    WebDriverWait(browser, 7).until(
+        EC.element_to_be_clickable((By.ID, 'closeBtn'))
+    ).click()
+    WebDriverWait(browser, 10).until(
+        EC.invisibility_of_element_located((By.ID, 'ad'))
+    )
+    browser.find_element(By.CSS_SELECTOR, '.box button').click()
+    print(browser.find_element(By.ID, 'message').text)
