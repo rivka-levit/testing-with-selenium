@@ -291,3 +291,20 @@ def test_wait_banner_disappeared(browser):
     )
     browser.find_element(By.CSS_SELECTOR, '.box button').click()
     print(browser.find_element(By.ID, 'message').text)
+
+
+def test_wait_ad_closed_text_appears(browser):
+    browser.get('https://parsinger.ru/selenium/5.9/5/index.html')
+    pieces_code = list()
+    buttons = browser.find_elements(By.CLASS_NAME, 'box_button')
+
+    for btn in buttons:
+        btn.click()
+        WebDriverWait(browser, 5).until(
+            EC.presence_of_element_located((By.ID, 'ad_window'))
+        )
+        browser.find_element(By.ID, 'close_ad').click()
+        WebDriverWait(browser, 15).until(lambda _: btn.text != '')
+        pieces_code.append(btn.text)
+
+    print('-'.join(pieces_code))
