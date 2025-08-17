@@ -308,3 +308,12 @@ def test_wait_ad_closed_text_appears(browser):
         pieces_code.append(btn.text)
 
     print('-'.join(pieces_code))
+
+
+def test_catch_flickering_checkbox(browser):
+    browser.get('https://parsinger.ru/selenium/5.9/6/index.html')
+    WebDriverWait(browser, 10).until(
+        EC.element_located_to_be_selected((By.ID, 'myCheckbox'))
+    )
+    browser.find_element(By.CSS_SELECTOR, '#main_container button').click()
+    print(browser.find_element(By.ID, 'result').text)
