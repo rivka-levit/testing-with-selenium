@@ -317,3 +317,14 @@ def test_catch_flickering_checkbox(browser):
     )
     browser.find_element(By.CSS_SELECTOR, '#main_container button').click()
     print(browser.find_element(By.ID, 'result').text)
+
+
+def test_follow_multiple_flickering_checkboxes(browser):
+    browser.get('https://parsinger.ru/selenium/5.9/7/index.html')
+    containers = browser.find_elements(By.CLASS_NAME, 'container')
+    for container in containers:
+        checkbox = container.find_element(By.TAG_NAME, 'input')
+        btn = container.find_element(By.TAG_NAME, 'button')
+        WebDriverWait(browser, 30).until(EC.element_to_be_selected(checkbox))
+        btn.click()
+    print(browser.find_element(By.ID, 'result').text)
