@@ -37,3 +37,17 @@ def test_move_element_by_control_points(browser):
     )
     print(msg.text)
 
+
+def test_move_boxes_home(browser):
+    browser.get('https://parsinger.ru/selenium/5.10/2/index.html')
+    boxes = browser.find_elements(By.CLASS_NAME, 'draganddrop')
+    home = browser.find_element(By.CLASS_NAME, 'draganddrop_end')
+    actions = ActionChains(browser)
+
+    for box in boxes:
+        actions.drag_and_drop(box, home).perform()
+
+    msg = WebDriverWait(browser, 5).until(
+        EC.visibility_of_element_located((By.ID, 'message'))
+    )
+    print(msg.text)
