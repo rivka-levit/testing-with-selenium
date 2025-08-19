@@ -51,3 +51,16 @@ def test_move_boxes_home(browser):
         EC.visibility_of_element_located((By.ID, 'message'))
     )
     print(msg.text)
+
+
+def test_move_circle_over_blocks(browser):
+    browser.get('https://parsinger.ru/draganddrop/2/index.html')
+    circle = browser.find_element(By.ID, 'draggable')
+    blocks = browser.find_elements(By.CLASS_NAME, 'box')
+    actions = ActionChains(browser)
+
+    for block in blocks:
+        actions.drag_and_drop(circle, block).perform()
+
+    actions.move_by_offset(50, 30).release().perform()
+    print(browser.find_element(By.ID, 'message').text)
