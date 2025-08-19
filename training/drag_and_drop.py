@@ -6,6 +6,7 @@ Command: pytest training\drag_and_drop.py
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC  # noqa
+from selenium.webdriver.support.color import Color
 from selenium.webdriver.support.ui import WebDriverWait
 
 import time
@@ -63,4 +64,22 @@ def test_move_circle_over_blocks(browser):
         actions.drag_and_drop(circle, block).perform()
 
     actions.move_by_offset(50, 30).release().perform()
+    print(browser.find_element(By.ID, 'message').text)
+
+
+def test_find_color_pair(browser):
+    browser.get('https://parsinger.ru/selenium/5.10/3/index.html')
+    bricks = browser.find_elements(By.CLASS_NAME, 'draganddrop')
+    bases = browser.find_elements(By.CLASS_NAME, 'draganddrop_end')
+
+    # Create dictionary of bricks with rgb color as a key
+    color_keys = {Color.from_string(brk.value_of_css_property('background-color')).rgb: brk for brk in bricks}
+
+    actions = ActionChains(browser)
+
+    for base in bases:
+        color = Color.from_string(base.value_of_css_property('border-color')).rgb
+        brick = color_keys[color]
+        actions.drag_and_drop(brick, base).perform()
+
     print(browser.find_element(By.ID, 'message').text)
