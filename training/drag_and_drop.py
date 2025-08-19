@@ -83,3 +83,20 @@ def test_find_color_pair(browser):
         actions.drag_and_drop(brick, base).perform()
 
     print(browser.find_element(By.ID, 'message').text)
+
+
+def test_move_circles_by_color(browser):
+    browser.get('https://parsinger.ru/selenium/5.10/4/index.html')
+    browser.fullscreen_window()
+    baskets = browser.find_elements(By.CLASS_NAME, 'basket_color')
+    circles = browser.find_elements(By.CLASS_NAME, 'ball_color')
+
+    color_baskets = {Color.from_string(bkt.value_of_css_property('background-color')).hex: bkt for bkt in baskets}
+
+    actions = ActionChains(browser)
+
+    for circle in circles:
+        color = Color.from_string(circle.value_of_css_property('background-color')).hex
+        actions.drag_and_drop(circle, color_baskets[color]).perform()
+
+    print(browser.find_element(By.CLASS_NAME, 'message').text)
