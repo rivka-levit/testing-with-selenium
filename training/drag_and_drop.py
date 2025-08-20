@@ -100,3 +100,19 @@ def test_move_circles_by_color(browser):
         actions.drag_and_drop(circle, color_baskets[color]).perform()
 
     print(browser.find_element(By.CLASS_NAME, 'message').text)
+
+
+def test_send_piece_by_distance(browser):
+    browser.get('https://parsinger.ru/selenium/5.10/8/index.html')
+    actions = ActionChains(browser)
+    pieces = browser.find_elements(By.CLASS_NAME, 'piece')
+
+    for piece in pieces:
+        distance = int(piece.get_attribute('id').lstrip('piece_')) + 25
+        time.sleep(.1)
+        actions.drag_and_drop_by_offset(piece, distance, 0).perform()
+
+    result = WebDriverWait(browser, 5).until(
+        EC.visibility_of_element_located((By.ID, 'message'))
+    )
+    print(result.text)
