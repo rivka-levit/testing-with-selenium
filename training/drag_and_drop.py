@@ -147,3 +147,21 @@ def test_move_sliders_exactly(browser):
             EC.visibility_of_element_located((By.ID, 'message'))
         ).text
     )
+
+
+def test_construct_word(browser):
+    browser.get('https://parsinger.ru/draganddrop/4/index.html')
+    chars = list(browser.find_element(By.ID, 'target-word').text)
+    letter_slots = browser.find_elements(By.CLASS_NAME, 'letter-slot')
+    alphabet = browser.find_element(By.ID, 'alphabet')
+    actions = ActionChains(browser)
+
+    for ch, slot in zip(chars, letter_slots):
+        draggable_char = alphabet.find_element(By.XPATH, f'.//div[text()="{ch}"]')
+        actions.drag_and_drop(draggable_char, slot).perform()
+
+    print(
+        WebDriverWait(browser, 5).until(
+            EC.visibility_of_element_located((By.ID, 'password'))
+        ).text
+    )
