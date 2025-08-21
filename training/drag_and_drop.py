@@ -5,6 +5,7 @@ Command: pytest training\drag_and_drop.py
 
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as EC  # noqa
 from selenium.webdriver.support.color import Color
 from selenium.webdriver.support.ui import WebDriverWait
@@ -116,3 +117,33 @@ def test_send_piece_by_distance(browser):
         EC.visibility_of_element_located((By.ID, 'message'))
     )
     print(result.text)
+
+
+def test_move_sliders_exactly(browser):
+    browser.get('https://parsinger.ru/selenium/5.10/6/index.html')
+    slider_rows = browser.find_elements(By.CLASS_NAME, 'slider-row')
+
+    for slider in slider_rows:
+        current_value = int(
+            slider.find_element(By.CLASS_NAME, 'current-value').text
+        )
+        target_value = int(
+            slider.find_element(By.CLASS_NAME, 'target-value').text
+        )
+        inp = slider.find_element(By.TAG_NAME, 'input')
+
+
+        while current_value != target_value:
+            if current_value < target_value:
+                inp.send_keys(Keys.ARROW_RIGHT)
+            elif current_value > target_value:
+                inp.send_keys(Keys.ARROW_LEFT)
+            current_value = int(
+                slider.find_element(By.CLASS_NAME, 'current-value').text
+            )
+
+    print(
+        WebDriverWait(browser, 5).until(
+            EC.visibility_of_element_located((By.ID, 'message'))
+        ).text
+    )
