@@ -48,3 +48,26 @@ def test_hide_chromedriver_one_pass(browser):
         EC.visibility_of_element_located((By.ID, 'secret'))
     ).text
     print(secret)
+
+
+def test_hide_headless_example():
+    url = "https://bot.sannysoft.com"
+    options = ChromeOptions()
+    options.add_argument("--disable-blink-features=AutomationControlled")
+    options.add_argument("--headless=new")
+    options.add_argument(
+        "--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+        "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36"
+    )
+    # options.add_argument("user-data-dir=c:\\Users\\julia\\AppData\\Local"
+    #                      "\\Google\\Chrome\\User Data\\Default"
+    #                      )
+
+    with webdriver.Chrome(options=options) as browser:
+        filename = "full_page.png"
+        total_width = browser.execute_script("return document.documentElement.scrollWidth")
+        total_height = browser.execute_script("return document.documentElement.scrollHeight")
+
+        browser.get(url)
+        browser.set_window_size(total_width, total_height)
+        browser.save_screenshot(filename)
