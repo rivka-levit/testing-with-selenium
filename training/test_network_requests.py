@@ -2,7 +2,7 @@
 Script to extract JSON data from web pages using CDP
 Command: pytest training\test_network_requests.py
 """
-
+from pprint import pprint
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
@@ -95,3 +95,32 @@ def test_get_json_contacts():
         browser.find_element(By.ID, 'contactsButton').click()
         time.sleep(5)
         get_all_json_requests(driver=browser)
+
+
+def test_sum_json_data():
+    with webdriver.Chrome(options=options) as browser:
+        browser.get('http://31.130.149.237/json_extraction')
+        time.sleep(1)
+        result = 0
+
+        logs_raw = browser.get_log("performance")
+        logs = [json.loads(lr["message"])["message"] for lr in logs_raw]
+
+        for log in filter(log_filter, logs):
+            try:
+                request_id = log["params"]["requestId"]
+
+                body = browser.execute_cdp_cmd("Network.getResponseBody", {"requestId": request_id})
+                json_data = json.loads(body['body'])
+
+                for book in json_data['data']:
+                    result += sum([book['id'], book['year'], book['price']])
+
+            except WebDriverException:
+                print('Нет Body для данного запроса')
+                continue
+
+        print()
+        print('=' * 10, 'RESULT', '=' * 10)
+        print(result)
+        print('=' * 28)
